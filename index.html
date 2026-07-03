@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loyal Wolf Kennel</title>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+<style>
+    /* ===== General mobile fixes ===== */
+    body{
+        overflow-x: hidden;
+    }
+
+    /* ===== Navbar ===== */
+    .lw-navbar{
+        padding: 10px 0;
+    }
+    .lw-logo{
+        max-width: 140px;
+    }
+    .lw-nav-links a{
+        text-decoration: none;
+        color: #ae8951 !important;
+    }
+    .navbar-toggler{
+        border-color: #ae8951 !important;
+    }
+    .navbar-toggler-icon{
+        filter: invert(66%) sepia(22%) saturate(600%) hue-rotate(2deg);
+    }
+
+    /* ===== Hero / background image sections ===== */
+    /* Instead of a plain <img>, these sections use a background-image
+       so we can control focal point (object position) per screen size. */
+    .lw-hero{
+        position: relative;
+        width: 100%;
+        min-height: 520px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: right center; /* keeps the right side of the image visible/prominent */
+        display: flex;
+        align-items: center;
+    }
+    .lw-hero::before{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0) 100%);
+    }
+    .lw-hero-content{
+        position: relative;
+        z-index: 2;
+        color: #fff;
+    }
+
+    #hero1{ background-image: url('./bg2.jpg'); }
+    #hero2{ background-image: url('./bgg.jpg'); }
+    #hero3{ background-image: url('./bg4.jpg'); }
+
+    /* ===== Dog cards ===== */
+    .dog-card img{
+        height: 220px;
+        object-fit: cover;
+    }
+
+    /* ===== Footer ===== */
+   .lw-footer{
+    position: relative;
+    color: #fff;
+    padding: 60px 30px;
+    overflow: hidden; /* isliye taake pseudo-element bahar na nikle */
+}
+
+.lw-footer::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('./ft.jpg');
+    background-size: cover;
+    background-position: right center;
+    filter: brightness(0.5); /* yahan brightness control karein, 1 = normal, jitna kam utna dark */
+    z-index: 0;
+}
+
+.lw-footer > *{
+    position: relative;
+    z-index: 1; /* content ko image ke upar layer pe rakhta hai, filter se untouched */
+}
+    /* ===================== MOBILE ADJUSTMENTS ===================== */
+    @media (max-width: 767.98px){
+
+        .lw-logo{
+            max-width: 100px;
+        }
+
+        .lw-hero{
+            min-height: 420px;
+            /* push the visible crop further right so the important part of
+               the image (right side) stays on screen on narrow viewports */
+            background-position: 80% center;
+        }
+        .lw-hero-content{
+            text-align: left;
+        }
+        .lw-hero-content h1{
+            font-size: 1.6rem;
+        }
+        .lw-hero-content p{
+            font-size: 0.9rem;
+        }
+
+        .dog-card img{
+            height: 160px;
+        }
+
+        .lw-footer{
+            padding: 40px 20px;
+            background-position: right center;
+        }
+        .lw-footer .col-4,
+        .lw-footer .col-3{
+            margin-bottom: 30px;
+        }
+    }
+
+    @media (max-width: 575.98px){
+        .lw-hero{
+            min-height: 360px;
+        }
+        .lw-hero-content h1{
+            font-size: 1.35rem;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container-fluid" style="background-color: #080808;">
+
+        <!-- ===== NAVBAR ===== -->
+        <nav class="navbar navbar-expand-lg lw-navbar" style="background-color:#080808;">
+            <div class="container-fluid px-3 px-md-5">
+
+                <a class="navbar-brand" href="#">
+                    <img src="./logo.png" class="lw-logo" alt="Loyal Wolf Kennel">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#lwNavbarContent" aria-controls="lwNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="lwNavbarContent">
+                    <ul class="navbar-nav ms-lg-auto align-items-lg-center gap-lg-4 lw-nav-links">
+                        <li class="nav-item mt-2 mt-lg-0">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item mt-2 mt-lg-0">
+                            <a class="nav-link" href="#">About Us</a>
+                        </li>
+                        <li class="nav-item dropdown mt-2 mt-lg-0">
+                            <button class="btn dropdown-toggle p-0" style="color:#ae8951;" data-bs-toggle="dropdown" aria-expanded="false">
+                                Contact
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="#">+92 3468181082</a></li>
+                                <li><a class="dropdown-item" href="#">abcd@gmail.com</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item mt-3 mt-lg-0">
+                            <a href="https://wa.me/923468181082" target="_blank">
+                                <button class="btn px-3 py-2 w-100" style="background:#ae8951;color:#fff;">
+                                    Get In Touch
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- ===== HERO 1 ===== -->
+        <div class="lw-hero" id="hero1">
+            <div class="lw-hero-content ms-md-5 ms-3 col-lg-5 col-md-6 col-11">
+
+                <p class="text-uppercase fw-bold mb-2" style="color: #ae8951; letter-spacing: 2px;">
+                    Loyal Wolf Kennel
+                </p>
+
+                <h1 class="fw-bold display-5">
+                    Raising Champions,<br>
+                    Building Loyalty.
+                </h1>
+
+                <p class="mt-3 text-light">
+                    Premium German Shepherd bloodlines bred for intelligence,
+                    strength, loyalty, and family companionship.
+                </p>
+
+                <a href="https://wa.me/923468181082" target="_blank">
+                    <button class="btn px-4 py-2 mt-3 fw-semibold" style="background:#ae8951; color:#fff;">
+                        Contact Us
+                    </button>
+                </a>
+
+            </div>
+        </div>
+
+
+        <div class="row pt-4 pb-3" style="background-color: #080808;">
+            <div class="col-12 fw-bold" style="text-align: center;">
+                <h3 class="fw-bold" style="color: #ae8951;">Our Dogs, Our Champions</h3>
+            </div>
+        </div>
+
+        <!-- ===== DOG CARDS ===== -->
+        <div class="row pt-2 pb-5 px-3 px-md-4 g-3" style="background-color: #080808;">
+
+            <div class="col-6 col-md-3">
+                <div class="card dog-card h-100" style="color: #080808;">
+                    <img src="./d1.jpg" class="card-img-top" alt="Dog">
+                    <div class="card-body" style="background-color: #080808; color: #ae8951; text-align: center;">
+                        <h2 class="h5 mb-0">Mark</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card dog-card h-100" style="color: #080808;">
+                    <img src="./d2.jpg" class="card-img-top" alt="Dog">
+                    <div class="card-body" style="background-color: #080808; color: #ae8951; text-align: center;">
+                        <h2 class="h5 mb-0">Leo</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card dog-card h-100" style="color: #080808;">
+                    <img src="./d3.jpg" class="card-img-top" alt="Dog">
+                    <div class="card-body" style="background-color: #080808; color: #ae8951; text-align: center;">
+                        <h2 class="h5 mb-0">Max</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card dog-card h-100" style="color: #080808;">
+                    <img src="./d4.jpg" class="card-img-top" alt="Dog">
+                    <div class="card-body" style="background-color: #080808; color: #ae8951; text-align: center;">
+                        <h2 class="h5 mb-0">Vancuover</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- ===== HERO 2 ===== -->
+        <div class="lw-hero" id="hero2">
+            <div class="lw-hero-content ms-md-5 ms-3 col-lg-5 col-md-6 col-11">
+
+                <p class="fw-bold mb-2" style="color:#ae8951; letter-spacing:3px;">
+                    LOYAL WOLF KENNEL
+                </p>
+
+                <h1 class="fw-bold display-5">
+                    Premium German <br>
+                    Shepherd Bloodlines
+                </h1>
+
+                <p class="mb-4">
+                    Raising loyal companions and powerful protectors
+                    with exceptional temperament, intelligence,
+                    and world-class genetics.
+                </p>
+
+                <a href="https://wa.me/923468181082" target="_blank">
+                    <button class="btn px-4 py-2 fw-semibold" style="background:#ae8951; color:white;">
+                        Reserve Your Puppy
+                    </button>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mt-5 mb-2">
+                <h2 style="font-family: 'Cinzel', serif;color: #ae8951; text-align: center; letter-spacing: 2px; font-weight: 700;">
+                    OUR HAPPY CUSTOMERS
+                </h2>
+            </div>
+        </div>
+
+        <!-- ===== TESTIMONIALS ===== -->
+        <div class="row p-3 p-md-4 pb-5 g-3">
+
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 p-4" style="background:#232323;color:white;">
+
+                    <h1 style="color:#ae8951;">&#10078;</h1>
+
+                    <p class="mb-5">
+                        "Loyal Wolf gave us more than a dog, they gave us a family member.
+                        The quality and temperament are amazing."
+                    </p>
+
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle d-flex justify-content-center align-items-center fw-bold"
+                             style="width:60px;height:60px;background:#ae8951;color:#080808;">
+                            AR
+                        </div>
+
+                        <div class="ms-3">
+                            <h5 class="mb-0 fw-bold" style="color:#ae8951;">ALI RAZA</h5>
+                            <small class="text-secondary">LAHORE</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 p-4" style="background:#232323;color:white;">
+
+                    <h1 style="color:#ae8951;">&#10078;</h1>
+
+                    <p class="mb-5">
+                        "Professional team, healthy dogs and lifelong support.
+                        Highly recommended for GSD lovers."
+                    </p>
+
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle d-flex justify-content-center align-items-center fw-bold"
+                             style="width:60px;height:60px;background:#ae8951;color:#080808;">
+                            UK
+                        </div>
+
+                        <div class="ms-3">
+                            <h5 class="mb-0 fw-bold" style="color:#ae8951;">USMAN KHAN</h5>
+                            <small class="text-secondary">ISLAMABAD</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 p-4" style="background:#232323;color:white;">
+
+                    <h1 style="color:#ae8951;">&#10078;</h1>
+
+                    <p class="mb-5">
+                        "My GSD from Loyal Wolf is a true champion.
+                        Strong, intelligent and very well trained."
+                    </p>
+
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle d-flex justify-content-center align-items-center fw-bold"
+                             style="width:60px;height:60px;background:#ae8951;color:#080808;">
+                            HB
+                        </div>
+
+                        <div class="ms-3">
+                            <h5 class="mb-0 fw-bold" style="color:#ae8951;">HAMZA BUTT</h5>
+                            <small class="text-secondary">KARACHI</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ===== HERO 3 ===== -->
+        <div class="lw-hero" id="hero3">
+            <div class="lw-hero-content ms-lg-5 ms-3 col-lg-5 col-md-6 col-11">
+
+                <p class="fw-bold text-uppercase mb-2" style="color:#ae8951; letter-spacing:3px;">
+                    LOYAL WOLF KENNEL
+                </p>
+
+                <h1 class="fw-bold display-4">
+                    Find Your Next <br>
+                    Loyal Companion
+                </h1>
+
+                <p class="mb-4">
+                    Discover exceptional German Shepherds bred for loyalty,
+                    intelligence, protection, and lifelong companionship.
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="https://wa.me/923468181082" target="_blank">
+                        <button class="btn px-4 py-2 fw-semibold" style="background:#ae8951; color:white;">
+                            Contact Us
+                        </button>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="container-fluid lw-footer">
+
+        <div class="row">
+
+            <!-- Logo and About -->
+            <div class="col-12 col-md-4">
+
+                <h2 style="color:#ae8951;">LOYAL WOLF</h2>
+                <h5>GSD KENNEL</h5>
+
+                <h2 style="color:#ae8951; margin-top:30px;" class="h4 h2-md">
+                    RAISING CHAMPIONS.<br>
+                    BUILDING BONDS.<br>
+                    CREATING LEGACIES.
+                </h2>
+
+                <div style="margin-top:30px;">
+                    <i class="bi bi-facebook fs-4 me-3" style="color:#ae8951;"></i>
+                    <i class="bi bi-instagram fs-4 me-3" style="color:#ae8951;"></i>
+                    <i class="bi bi-youtube fs-4 me-3" style="color:#ae8951;"></i>
+                    <i class="bi bi-whatsapp fs-4" style="color:#ae8951;"></i>
+                </div>
+
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-6 col-md-3">
+
+                <h4 style="color:#ae8951;">QUICK LINKS</h4>
+
+                <p>Home</p>
+                <p>About Us</p>
+                <p>Our Dogs</p>
+                <p>Puppies</p>
+                <p>Gallery</p>
+                <p>Contact Us</p>
+
+            </div>
+
+            <!-- Contact -->
+            <div class="col-6 col-md-3">
+
+                <h4 style="color:#ae8951;">GET IN TOUCH</h4>
+
+                <p>
+                    <i class="bi bi-telephone-fill me-2" style="color:#ae8951;"></i>
+                    0346-8181082
+                </p>
+
+                <p>
+                    <i class="bi bi-envelope-fill me-2" style="color:#ae8951;"></i>
+                    loyalwolf@gmail.com
+                </p>
+
+                <p>
+                    <i class="bi bi-geo-alt-fill me-2" style="color:#ae8951;"></i>
+                    Lahore, Pakistan
+                </p>
+
+                <p style="margin-top:25px;">
+                    <i class="bi bi-clock-fill me-2" style="color:#ae8951;"></i>
+                    10:00 AM - 8:00 PM
+                </p>
+
+            </div>
+
+        </div>
+
+        <hr style="color:#ae8951; margin-top:40px;">
+
+        <div class="row">
+            <div class="col-12 text-center">
+                &copy; 2026 Loyal Wolf GSD Kennel 
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
