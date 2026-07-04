@@ -34,27 +34,35 @@
         filter: invert(66%) sepia(22%) saturate(600%) hue-rotate(2deg);
     }
 
-    /* ===== Hero / background image sections ===== */
-    /* Instead of a plain <img>, these sections use a background-image
-       so we can control focal point (object position) per screen size. */
+    /* ===== Hero sections =====
+       Structure: .lw-hero (wrapper) > .lw-hero-bg (the image) + .lw-hero-content (the text)
+       Desktop: content is absolutely positioned ON TOP of the image (overlay look).
+       Mobile: content drops OUT of the image and flows normally BELOW it. */
     .lw-hero{
         position: relative;
+        width: 100%;
+    }
+
+    .lw-hero-bg{
         width: 100%;
         min-height: 520px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: right center; /* keeps the right side of the image visible/prominent */
-        display: flex;
-        align-items: center;
+        position: relative;
     }
-    .lw-hero::before{
+    .lw-hero-bg::before{
         content: "";
         position: absolute;
         inset: 0;
         background: linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.15) 55%, rgba(0,0,0,0) 100%);
     }
+
     .lw-hero-content{
-        position: relative;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
         z-index: 2;
         color: #fff;
     }
@@ -70,28 +78,27 @@
     }
 
     /* ===== Footer ===== */
-   .lw-footer{
-    position: relative;
-    color: #fff;
-    padding: 60px 30px;
-    overflow: hidden; /* isliye taake pseudo-element bahar na nikle */
-}
+    .lw-footer{
+        position: relative;
+        color: #fff;
+        padding: 60px 30px;
+        overflow: hidden; /* keeps the ::before background contained */
+    }
+    .lw-footer::before{
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url('./ft.jpg');
+        background-size: cover;
+        background-position: right center;
+        filter: brightness(0.5); /* darkness control: 1 = normal, lower = darker */
+        z-index: 0;
+    }
+    .lw-footer > *{
+        position: relative;
+        z-index: 1; /* keeps text above the darkened image, unaffected by the filter */
+    }
 
-.lw-footer::before{
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: url('./ft.jpg');
-    background-size: cover;
-    background-position: right center;
-    filter: brightness(0.5); /* yahan brightness control karein, 1 = normal, jitna kam utna dark */
-    z-index: 0;
-}
-
-.lw-footer > *{
-    position: relative;
-    z-index: 1; /* content ko image ke upar layer pe rakhta hai, filter se untouched */
-}
     /* ===================== MOBILE ADJUSTMENTS ===================== */
     @media (max-width: 767.98px){
 
@@ -99,13 +106,26 @@
             max-width: 100px;
         }
 
+        /* Text drops below the image instead of overlaying it */
         .lw-hero{
-            min-height: 420px;
-            /* push the visible crop further right so the important part of
-               the image (right side) stays on screen on narrow viewports */
-            background-position: 80% center;
+            display: flex;
+            flex-direction: column;
+        }
+        .lw-hero-bg{
+            min-height: 260px;
+            background-position: 80% center; /* push crop further right on narrow screens */
+        }
+        .lw-hero-bg::before{
+            background: rgba(0,0,0,0.15); /* lighter overlay, since text no longer sits on the image */
         }
         .lw-hero-content{
+            position: static;
+            transform: none;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 24px 20px;
+            background: #080808;
             text-align: left;
         }
         .lw-hero-content h1{
@@ -121,6 +141,8 @@
 
         .lw-footer{
             padding: 40px 20px;
+        }
+        .lw-footer::before{
             background-position: right center;
         }
         .lw-footer .col-4,
@@ -130,8 +152,8 @@
     }
 
     @media (max-width: 575.98px){
-        .lw-hero{
-            min-height: 360px;
+        .lw-hero-bg{
+            min-height: 220px;
         }
         .lw-hero-content h1{
             font-size: 1.35rem;
@@ -186,7 +208,8 @@
         </nav>
 
         <!-- ===== HERO 1 ===== -->
-        <div class="lw-hero" id="hero1">
+        <div class="lw-hero">
+            <div class="lw-hero-bg" id="hero1"></div>
             <div class="lw-hero-content ms-md-5 ms-3 col-lg-5 col-md-6 col-11">
 
                 <p class="text-uppercase fw-bold mb-2" style="color: #ae8951; letter-spacing: 2px;">
@@ -259,7 +282,8 @@
 
 
         <!-- ===== HERO 2 ===== -->
-        <div class="lw-hero" id="hero2">
+        <div class="lw-hero">
+            <div class="lw-hero-bg" id="hero2"></div>
             <div class="lw-hero-content ms-md-5 ms-3 col-lg-5 col-md-6 col-11">
 
                 <p class="fw-bold mb-2" style="color:#ae8951; letter-spacing:3px;">
@@ -375,7 +399,8 @@
         </div>
 
         <!-- ===== HERO 3 ===== -->
-        <div class="lw-hero" id="hero3">
+        <div class="lw-hero">
+            <div class="lw-hero-bg" id="hero3"></div>
             <div class="lw-hero-content ms-lg-5 ms-3 col-lg-5 col-md-6 col-11">
 
                 <p class="fw-bold text-uppercase mb-2" style="color:#ae8951; letter-spacing:3px;">
@@ -478,7 +503,7 @@
 
         <div class="row">
             <div class="col-12 text-center">
-                &copy; 2026 Loyal Wolf GSD Kennel 
+                &copy; 2026 Loyal Wolf GSD Kennel
             </div>
         </div>
 
